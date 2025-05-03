@@ -54,10 +54,10 @@ with mp_hands.Hands(
         # 2. Prediction logic
         keypoints = extract_keypoints(results)
         sequence.append(keypoints)
-        sequence = sequence[-30:]
+        sequence = sequence[-100:]
 
         try: 
-            if len(sequence) == 30:
+            if len(sequence) == 100:
                 res = model.predict(np.expand_dims(sequence, axis=0))[0]
                 print(actions[np.argmax(res)])
                 predictions.append(np.argmax(res))
@@ -85,7 +85,7 @@ with mp_hands.Hands(
             pass
             
         cv2.rectangle(frame, (0,0), (300, 40), (245, 117, 16), -1)
-        cv2.putText(frame,"Output: -"+' '.join(sentence)+''.join(accuracy), (3,30), 
+        cv2.putText(frame,"Output: -"+' '.join(sentence)+''.join(accuracy), (4,100), 
                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
         
         # Show to screen
